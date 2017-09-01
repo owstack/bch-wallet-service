@@ -1,11 +1,11 @@
-
-# bcccore-wallet-service
+Bcccore Wallet Service
+======
 
 [![NPM Package](https://img.shields.io/npm/v/bcccore-wallet-service.svg?style=flat-square)](https://www.npmjs.org/package/bcccore-wallet-service)
 [![Build Status](https://img.shields.io/travis/owstack/bcccore-wallet-service.svg?branch=master&style=flat-square)](https://travis-ci.org/bitpay/bcccore-wallet-service)
 [![Coverage Status](https://coveralls.io/repos/owstack/bcccore-wallet-service/badge.svg?branch=master)](https://coveralls.io/r/owstack/bcccore-wallet-service?branch=master)
 
-A Multisig HD Bcccore Wallet Service.
+A multisignature HD Bitcoin Cash wallet service.
 
 ## Attribution
 
