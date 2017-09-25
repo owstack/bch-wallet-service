@@ -2,7 +2,7 @@ Bcccore Wallet Service
 ======
 
 [![NPM Package](https://img.shields.io/npm/v/bcccore-wallet-service.svg?style=flat-square)](https://www.npmjs.org/package/bcccore-wallet-service)
-[![Build Status](https://img.shields.io/travis/owstack/bcccore-wallet-service.svg?branch=master&style=flat-square)](https://travis-ci.org/bitpay/bcccore-wallet-service)
+[![Build Status](https://img.shields.io/travis/owstack/bcccore-wallet-service.svg?branch=master&style=flat-square)](https://travis-ci.org/owstack/bcccore-wallet-service)
 [![Coverage Status](https://coveralls.io/repos/owstack/bcccore-wallet-service/badge.svg?branch=master)](https://coveralls.io/r/owstack/bcccore-wallet-service?branch=master)
 
 A multisignature HD Bitcoin Cash wallet service.
@@ -88,7 +88,7 @@ Returns:
 `/v1/addresses/`: Get Wallet's main addresses (does not include change addresses)
 
 Returns:
- * List of Addresses object: (https://github.com/owstack/bcccore-wallet-service/blob/master/lib/model/address.js)).  This call is mainly provided so the client check this addresses for incoming transactions (using a service like [Insight](https://insight.is)
+ * List of Addresses object: (https://github.com/owstack/bcccore-wallet-service/blob/master/lib/model/address.js)).  This call is mainly provided so the client check this addresses for incoming transactions (using a service like [Explorer](https://github.com/owstack/ows-explorer)
 
 `/v1/balance/`:  Get Wallet's balance
 
@@ -144,7 +144,7 @@ Returns:
 `/v1/txproposals/`: Add a new transaction proposal
 
 Required Arguments:
- * toAddress: RCPT Bitcoin address.
+ * toAddress: RCPT Bitcoin Cash address.
  * amount: amount (in satoshis) of the mount proposed to be transfered
  * proposalsSignature: Signature of the proposal by the creator peer, using prososalSigningKey.
  * (opt) message: Encrypted private message to peers.

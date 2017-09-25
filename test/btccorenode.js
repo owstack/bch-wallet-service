@@ -4,7 +4,7 @@ var should = require('chai').should();
 var proxyquire = require('proxyquire');
 var bcccore = require('bcccore-lib');
 var sinon = require('sinon');
-var Service = require('../bcccorenode');
+var Service = require('../bcccore-node');
 var Constants = require('../lib/common/constants');
 
 describe('Bcccore Node Service', function() {
@@ -66,7 +66,7 @@ describe('Bcccore Node Service', function() {
     });
   });
   describe('#readHttpsOptions', function() {
-    var TestService = proxyquire('../bcccorenode', {
+    var TestService = proxyquire('../bcccore-node', {
       fs: {
         readFileSync: function(arg) {
           return arg;
@@ -107,7 +107,7 @@ describe('Bcccore Node Service', function() {
         service._getConfiguration();
       }).should.throw('Unknown network');
     });
-    it('livenet local insight', function() {
+    it('livenet local explorer', function() {
       var options = {
         node: {
           network: bcccore.Networks.livenet,
@@ -116,12 +116,12 @@ describe('Bcccore Node Service', function() {
       };
       var service = new Service(options);
       var config = service._getConfiguration();
-      config.blockchainExplorerOpts['insight'][Constants.LIVENET].should.deep.equal({
-        'apiPrefix': '/insight-api',
+      config.blockchainExplorerOpts['explorer'][Constants.LIVENET].should.deep.equal({
+        'apiPrefix': '/explorer-api',
         'url': 'http://localhost:3001'
       });
     });
-    it('testnet local insight', function() {
+    it('testnet local explorer', function() {
       var options = {
         node: {
           network: bcccore.Networks.testnet,
@@ -130,8 +130,8 @@ describe('Bcccore Node Service', function() {
       };
       var service = new Service(options);
       var config = service._getConfiguration();
-      config.blockchainExplorerOpts['insight'][Constants.TESTNET].should.deep.equal({
-        'apiPrefix': '/insight-api',
+      config.blockchainExplorerOpts['explorer'][Constants.TESTNET].should.deep.equal({
+        'apiPrefix': '/explorer-api',
         'url': 'http://localhost:3001'
       });
     });
@@ -143,7 +143,7 @@ describe('Bcccore Node Service', function() {
       function TestWSApp() {}
       TestWSApp.prototype.start = sinon.stub().callsArg(2);
       var listen = sinon.stub().callsArg(1);
-      var TestService = proxyquire('../bcccorenode', {
+      var TestService = proxyquire('../bcccore-node', {
         '../lib/expressapp': TestExpressApp,
         '../lib/wsapp': TestWSApp,
         'http': {
@@ -173,7 +173,7 @@ describe('Bcccore Node Service', function() {
       function TestWSApp() {}
       TestWSApp.prototype.start = sinon.stub().callsArg(2);
       var listen = sinon.stub().callsArgWith(1, new Error('test'));
-      var TestService = proxyquire('../bcccorenode', {
+      var TestService = proxyquire('../bcccore-node', {
         '../lib/expressapp': TestExpressApp,
         '../lib/wsapp': TestWSApp,
         'http': {
@@ -214,7 +214,7 @@ describe('Bcccore Node Service', function() {
           listen: listen
         };
       };
-      var TestService = proxyquire('../bcccorenode', {
+      var TestService = proxyquire('../bcccore-node', {
         '../lib/expressapp': TestExpressApp,
         '../lib/wsapp': TestWSApp,
         'https': {
@@ -259,7 +259,7 @@ describe('Bcccore Node Service', function() {
       TestLocker.prototype.listen = sinon.stub();
       function TestEmailService() {}
       TestEmailService.prototype.start = sinon.stub();
-      var TestService = proxyquire('../bcccorenode', {
+      var TestService = proxyquire('../bcccore-node', {
         '../lib/blockchainmonitor': TestBlockchainMonitor,
         '../lib/emailservice': TestEmailService,
         'socket.io': sinon.stub().returns({
@@ -287,7 +287,7 @@ describe('Bcccore Node Service', function() {
       TestLocker.prototype.listen = sinon.stub();
       function TestEmailService() {}
       TestEmailService.prototype.start = sinon.stub().callsArgWith(1, new Error('test'));
-      var TestService = proxyquire('../bcccorenode', {
+      var TestService = proxyquire('../bcccore-node', {
         '../lib/blockchainmonitor': TestBlockchainMonitor,
         '../lib/emailservice': TestEmailService,
         'socket.io': sinon.stub().returns({
