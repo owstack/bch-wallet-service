@@ -2,12 +2,12 @@
 
 var should = require('chai').should();
 var proxyquire = require('proxyquire');
-var bcccore = require('bcccore-lib');
+var bch = require('bch-lib');
 var sinon = require('sinon');
-var Service = require('../bcccore-node');
+var Service = require('../bch-node');
 var Constants = require('../lib/common/constants');
 
-describe('Bcccore Node Service', function() {
+describe('Bch Node Service', function() {
   describe('#constructor', function() {
     it('https settings from node', function() {
       var node = {
@@ -27,7 +27,7 @@ describe('Bcccore Node Service', function() {
         key: 'key',
         cert: 'cert'
       });
-      service.bccwsPort.should.equal(3232);
+      service.bchwsPort.should.equal(3232);
       service.messageBrokerPort.should.equal(3380);
       service.lockerPort.should.equal(3231);
     });
@@ -47,7 +47,7 @@ describe('Bcccore Node Service', function() {
         key: 'key',
         cert: 'cert'
       });
-      service.bccwsPort.should.equal(3232);
+      service.bchwsPort.should.equal(3232);
       service.messageBrokerPort.should.equal(3380);
       service.lockerPort.should.equal(3231);
     });
@@ -55,18 +55,18 @@ describe('Bcccore Node Service', function() {
       var node = {};
       var options = {
         node: node,
-        bccwsPort: 1000,
+        bchwsPort: 1000,
         messageBrokerPort: 1001,
         lockerPort: 1002
       };
       var service = new Service(options);
-      service.bccwsPort.should.equal(1000);
+      service.bchwsPort.should.equal(1000);
       service.messageBrokerPort.should.equal(1001);
       service.lockerPort.should.equal(1002);
     });
   });
   describe('#readHttpsOptions', function() {
-    var TestService = proxyquire('../bcccore-node', {
+    var TestService = proxyquire('../bch-node', {
       fs: {
         readFileSync: function(arg) {
           return arg;
@@ -110,7 +110,7 @@ describe('Bcccore Node Service', function() {
     it('livenet local explorer', function() {
       var options = {
         node: {
-          network: bcccore.Networks.livenet,
+          network: bch.Networks.livenet,
           port: 3001
         }
       };
@@ -124,7 +124,7 @@ describe('Bcccore Node Service', function() {
     it('testnet local explorer', function() {
       var options = {
         node: {
-          network: bcccore.Networks.testnet,
+          network: bch.Networks.testnet,
           port: 3001
         }
       };
@@ -143,7 +143,7 @@ describe('Bcccore Node Service', function() {
       function TestWSApp() {}
       TestWSApp.prototype.start = sinon.stub().callsArg(2);
       var listen = sinon.stub().callsArg(1);
-      var TestService = proxyquire('../bcccore-node', {
+      var TestService = proxyquire('../bch-node', {
         '../lib/expressapp': TestExpressApp,
         '../lib/wsapp': TestWSApp,
         'http': {
@@ -154,7 +154,7 @@ describe('Bcccore Node Service', function() {
       });
       var options = {
         node: {
-          bccwsPort: 3232
+          bchwsPort: 3232
         }
       };
       var service = new TestService(options);
@@ -173,7 +173,7 @@ describe('Bcccore Node Service', function() {
       function TestWSApp() {}
       TestWSApp.prototype.start = sinon.stub().callsArg(2);
       var listen = sinon.stub().callsArgWith(1, new Error('test'));
-      var TestService = proxyquire('../bcccore-node', {
+      var TestService = proxyquire('../bch-node', {
         '../lib/expressapp': TestExpressApp,
         '../lib/wsapp': TestWSApp,
         'http': {
@@ -187,7 +187,7 @@ describe('Bcccore Node Service', function() {
       });
       var options = {
         node: {
-          bccwsPort: 3232
+          bchwsPort: 3232
         }
       };
       var service = new TestService(options);
@@ -214,7 +214,7 @@ describe('Bcccore Node Service', function() {
           listen: listen
         };
       };
-      var TestService = proxyquire('../bcccore-node', {
+      var TestService = proxyquire('../bch-node', {
         '../lib/expressapp': TestExpressApp,
         '../lib/wsapp': TestWSApp,
         'https': {
@@ -224,7 +224,7 @@ describe('Bcccore Node Service', function() {
       var options = {
         node: {
           https: true,
-          bccwsPort: 3232
+          bchwsPort: 3232
         }
       };
       var service = new TestService(options);
@@ -259,7 +259,7 @@ describe('Bcccore Node Service', function() {
       TestLocker.prototype.listen = sinon.stub();
       function TestEmailService() {}
       TestEmailService.prototype.start = sinon.stub();
-      var TestService = proxyquire('../bcccore-node', {
+      var TestService = proxyquire('../bch-node', {
         '../lib/blockchainmonitor': TestBlockchainMonitor,
         '../lib/emailservice': TestEmailService,
         'socket.io': sinon.stub().returns({
@@ -287,7 +287,7 @@ describe('Bcccore Node Service', function() {
       TestLocker.prototype.listen = sinon.stub();
       function TestEmailService() {}
       TestEmailService.prototype.start = sinon.stub().callsArgWith(1, new Error('test'));
-      var TestService = proxyquire('../bcccore-node', {
+      var TestService = proxyquire('../bch-node', {
         '../lib/blockchainmonitor': TestBlockchainMonitor,
         '../lib/emailservice': TestEmailService,
         'socket.io': sinon.stub().returns({

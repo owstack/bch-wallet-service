@@ -2,7 +2,7 @@
 
 var LevelStorage = require('../lib/storage_leveldb');
 var MongoStorage = require('../lib/storage');
-var Bcccore = require('bcccore-lib');
+var Bch = require('bch-lib');
 
 var level = new LevelStorage({
   dbPath: './db',
@@ -11,7 +11,7 @@ var level = new LevelStorage({
 var mongo = new MongoStorage();
 mongo.connect({
     mongoDb: {
-      uri: 'mongodb://localhost:27017/bccws',
+      uri: 'mongodb://localhost:27017/bchws',
     }
   },
   function(err) {
@@ -59,13 +59,13 @@ function migrate(key, value, cb) {
     mongo.db.collection('copayers_lookup').insert(value, cb);
   } else if (key.match(/!addr!/)) {
     value.walletId = key.substring(2, key.indexOf('!addr'));
-    value.network = Bcccore.Address(value.address).toObject().network;
+    value.network = Bch.Address(value.address).toObject().network;
     mongo.db.collection('addresses').insert(value, cb);
   } else if (key.match(/!not!/)) {
     mongo.db.collection('notifications').insert(value, cb);
   } else if (key.match(/!p?txp!/)) {
     value.isPending = key.indexOf('!ptxp!') != -1;
-    value.network = Bcccore.Address(value.toAddress).toObject().network;
+    value.network = Bch.Address(value.toAddress).toObject().network;
     mongo.db.collection('txs').insert(value, cb);
   } else if (key.match(/!main$/)) {
     mongo.db.collection('wallets').insert(value, cb);

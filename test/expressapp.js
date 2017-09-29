@@ -81,7 +81,7 @@ describe('ExpressApp', function() {
           request(requestOptions, function(err, res, body) {
             should.not.exist(err);
             should.exist(res.headers['x-service-version']);
-            res.headers['x-service-version'].should.equal('bccws-' + require('../package').version);
+            res.headers['x-service-version'].should.equal('bchws-' + require('../package').version);
             res.statusCode.should.equal(200);
             body.should.equal('{}');
             done();
