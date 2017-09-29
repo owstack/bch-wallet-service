@@ -12,7 +12,7 @@ describe('Address', function() {
   describe('#create', function() {
     it('should create livenet address', function() {
       var x = Address.create({
-        address: '3KxttbKQQPWmpsnXZ3rB4mgJTuLnVR7frg',
+        address: 'HQo1MPkVFhjST3fZQjWL3ACqVZMoQszhJV',
         walletId: '123',
         isChange: false,
         path: 'm/0/1',
@@ -43,7 +43,7 @@ describe('Address', function() {
       }], 'm/0/0', 1, Constants.LIVENET, false);
       should.exist(address);
       address.walletId.should.equal('wallet-id');
-      address.address.should.equal('3QN2CiSxcUsFuRxZJwXMNDQ2esnr5RXTvw');
+      address.address.should.equal('HVC8fWt3To5vXbqbAdBWLbvZgXorxo5T8s');
       address.network.should.equal(Constants.LIVENET);
       address.isChange.should.be.false;
       address.path.should.equal('m/0/0');
@@ -56,7 +56,7 @@ describe('Address', function() {
       }], 'm/0/0', 1, Constants.LIVENET, false);
       should.exist(address);
       address.walletId.should.equal('wallet-id');
-      address.address.should.equal('3BY4K8dfsHryhWh2MJ6XHxxsRfcvPAyseH');
+      address.address.should.equal('HGNAmw4kic5eKga4CykgGMVQTKdwDGZM1U');
       address.network.should.equal(Constants.LIVENET);
       address.isChange.should.be.false;
       address.path.should.equal('m/0/0');
@@ -69,7 +69,7 @@ describe('Address', function() {
       }], 'm/1/2', 1, Constants.LIVENET, true);
       should.exist(address);
       address.walletId.should.equal('wallet-id');
-      address.address.should.equal('1G4wgi9YzmSSwQaQVLXQ5HUVquQDgJf8oT');
+      address.address.should.equal('CXXqFkVcspQyqYUqB5rKeo6XU2cdZMeLGY');
       address.network.should.equal(Constants.LIVENET);
       address.isChange.should.be.true;
       address.path.should.equal('m/1/2');
