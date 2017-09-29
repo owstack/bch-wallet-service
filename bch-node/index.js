@@ -7,8 +7,8 @@ var https = require('https');
 var http = require('http');
 var async = require('async');
 var path = require('path');
-var bcccore = require('bcccore-lib');
-var Networks = bcccore.Networks;
+var bch = require('bch-lib');
+var Networks = bch.Networks;
 var Locker = require('locker-server');
 var BlockchainMonitor = require('../lib/blockchainmonitor');
 var EmailService = require('../lib/emailservice');
@@ -20,13 +20,13 @@ var baseConfig = require('../config');
 var Constants = require('../lib/common/constants');
 
 /**
- * A Bcccore Node Service module
+ * A Bch Node Service module
  * @param {Object} options
- * @param {Node} options.node - A reference to the Bcccore Node instance
+ * @param {Node} options.node - A reference to the Bch Node instance
 -* @param {Boolean} options.https - Enable https for this module, defaults to node settings.
- * @param {Number} options.bccwsPort - Port for Bcccore Wallet Service API
- * @param {Number} options.messageBrokerPort - Port for BCCWS message broker
- * @param {Number} options.lockerPort - Port for BCCWS locker port
+ * @param {Number} options.bchwsPort - Port for Bch Wallet Service API
+ * @param {Number} options.messageBrokerPort - Port for BCHWS message broker
+ * @param {Number} options.lockerPort - Port for BCHWS locker port
  */
 var Service = function(options) {
   EventEmitter.call(this);
@@ -34,7 +34,7 @@ var Service = function(options) {
   this.node = options.node;
   this.https = options.https || this.node.https;
   this.httpsOptions = options.httpsOptions || this.node.httpsOptions;
-  this.bccwsPort = options.bccwsPort || baseConfig.port;
+  this.bchwsPort = options.bchwsPort || baseConfig.port;
   this.messageBrokerPort = options.messageBrokerPort || 3380;
   if (baseConfig.lockOpts) {
     this.lockerPort = baseConfig.lockOpts.lockerServer.port;
@@ -44,7 +44,7 @@ var Service = function(options) {
 
 util.inherits(Service, EventEmitter);
 
-Service.dependencies = ['bcccore-explorer-api'];
+Service.dependencies = ['bch-explorer-api'];
 
 /**
  * This method will read `key` and `cert` files from disk based on `httpsOptions` and
@@ -84,7 +84,7 @@ Service.prototype._getConfiguration = function() {
     apiPrefix: '/explorer-api'
   };
 
-  // A bcccore-node is either livenet or testnet, so we'll pass
+  // A bch-node is either livenet or testnet, so we'll pass
   // the configuration options to communicate via the local running
   // instance of the explorer-api service.
   if (self.node.network === Networks.livenet) {
@@ -117,7 +117,7 @@ Service.prototype._startWalletService = function(config, next) {
     if (err) {
       return next(err);
     }
-    self.server.listen(self.bccwsPort, next);
+    self.server.listen(self.bchwsPort, next);
   });
 };
 

@@ -10,7 +10,7 @@ stop_program ()
   
 }
 
-stop_program pids/bccws.pid
+stop_program pids/bchws.pid
 stop_program pids/fiatrateservice.pid
 stop_program pids/emailservice.pid
 stop_program pids/bcmonitor.pid

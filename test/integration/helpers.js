@@ -12,7 +12,7 @@ var tingodb = require('tingodb')({
   memStore: true
 });
 
-var Bcccore = require('bcccore-lib');
+var bchLib = require('bch-lib');
 
 var Common = require('../../lib/common');
 var Utils = Common.Utils;
@@ -30,13 +30,13 @@ var useMongoDb = !!process.env.USE_MONGO_DB;
 
 var helpers = {};
 
-helpers.CLIENT_VERSION = 'bccwc-2.0.0';
+helpers.CLIENT_VERSION = 'bchwc-2.0.0';
 
 helpers.before = function(cb) {
   function getDb(cb) {
     if (useMongoDb) {
       var mongodb = require('mongodb');
-      mongodb.MongoClient.connect('mongodb://localhost:27017/bccws_test', function(err, db) {
+      mongodb.MongoClient.connect('mongodb://localhost:27017/bchws_test', function(err, db) {
         if (err) throw err;
         return cb(db);
       });
@@ -82,13 +82,13 @@ helpers.getStorage = function() {
 };
 
 helpers.signMessage = function(text, privKey) {
-  var priv = new Bcccore.PrivateKey(privKey);
+  var priv = new bchLib.PrivateKey(privKey);
   var hash = Utils.hashMessage(text);
-  return Bcccore.crypto.ECDSA.sign(hash, priv, 'little').toString();
+  return bchLib.crypto.ECDSA.sign(hash, priv, 'little').toString();
 };
 
 helpers.signRequestPubKey = function(requestPubKey, xPrivKey) {
-  var priv = new Bcccore.HDPrivateKey(xPrivKey).deriveChild(Constants.PATHS.REQUEST_KEY_AUTH).privateKey;
+  var priv = new bchLib.HDPrivateKey(xPrivKey).deriveChild(Constants.PATHS.REQUEST_KEY_AUTH).privateKey;
   return helpers.signMessage(requestPubKey, priv);
 };
 
@@ -110,19 +110,19 @@ helpers.getAuthServer = function(copayerId, cb) {
 helpers._generateCopayersTestData = function(n) {
   console.log('var copayers = [');
   _.each(_.range(n), function(c) {
-    var xpriv = new Bcccore.HDPrivateKey();
-    var xpub = Bcccore.HDPublicKey(xpriv);
+    var xpriv = new bchLib.HDPrivateKey();
+    var xpub = bchLib.HDPublicKey(xpriv);
 
     var xpriv_45H = xpriv.deriveChild(45, true);
-    var xpub_45H = Bcccore.HDPublicKey(xpriv_45H);
+    var xpub_45H = bchLib.HDPublicKey(xpriv_45H);
     var id45 = Copayer._xPubToCopayerId(xpub_45H.toString());
 
     var xpriv_44H_0H_0H = xpriv.deriveChild(44, true).deriveChild(0, true).deriveChild(0, true);
-    var xpub_44H_0H_0H = Bcccore.HDPublicKey(xpriv_44H_0H_0H);
+    var xpub_44H_0H_0H = bchLib.HDPublicKey(xpriv_44H_0H_0H);
     var id44 = Copayer._xPubToCopayerId(xpub_44H_0H_0H.toString());
 
     var xpriv_1H = xpriv.deriveChild(1, true);
-    var xpub_1H = Bcccore.HDPublicKey(xpriv_1H);
+    var xpub_1H = bchLib.HDPublicKey(xpriv_1H);
     var priv = xpriv_1H.deriveChild(0).privateKey;
     var pub = xpub_1H.deriveChild(0).publicKey;
 
@@ -202,14 +202,14 @@ helpers.createAndJoinWallet = function(m, n, opts, cb) {
 
 
 helpers.randomTXID = function() {
-  return Bcccore.crypto.Hash.sha256(new Buffer(Math.random() * 100000)).toString('hex');;
+  return bchLib.crypto.Hash.sha256(new Buffer(Math.random() * 100000)).toString('hex');;
 };
 
-helpers.toSatoshi = function(bcc) {
-  if (_.isArray(bcc)) {
-    return _.map(bcc, helpers.toSatoshi);
+helpers.toSatoshi = function(bch) {
+  if (_.isArray(bch)) {
+    return _.map(bch, helpers.toSatoshi);
   } else {
-    return Utils.strip(bcc * 1e8);
+    return Utils.strip(bch * 1e8);
   }
 };
 
@@ -221,7 +221,7 @@ helpers._parseAmount = function(str) {
 
   if (_.isNumber(str)) str = str.toString();
 
-  var re = /^((?:\d+c)|u)?\s*([\d\.]+)\s*(bcc|bit|sat)?$/;
+  var re = /^((?:\d+c)|u)?\s*([\d\.]+)\s*(bch|bit|sat)?$/;
   var match = str.match(re);
 
   if (!match) throw new Error('Could not parse amount ' + str);
@@ -233,7 +233,7 @@ helpers._parseAmount = function(str) {
 
   switch (match[3]) {
     default:
-    case 'bcc':
+    case 'bch':
       result.amount = Utils.strip(+match[2] * 1e8);
       break;
     case 'bit':
@@ -277,10 +277,10 @@ helpers.stubUtxos = function(server, wallet, amounts, opts, cb) {
         var scriptPubKey;
         switch (wallet.addressType) {
           case Constants.SCRIPT_TYPES.P2SH:
-            scriptPubKey = Bcccore.Script.buildMultisigOut(address.publicKeys, wallet.m).toScriptHashOut();
+            scriptPubKey = bchLib.Script.buildMultisigOut(address.publicKeys, wallet.m).toScriptHashOut();
             break;
           case Constants.SCRIPT_TYPES.P2PKH:
-            scriptPubKey = Bcccore.Script.buildPublicKeyHashOut(address.address);
+            scriptPubKey = bchLib.Script.buildPublicKeyHashOut(address.address);
             break;
         }
         should.exist(scriptPubKey);
@@ -370,7 +370,7 @@ helpers.clientSign = function(txp, derivedXPrivKey) {
   var privs = [];
   var derived = {};
 
-  var xpriv = new Bcccore.HDPrivateKey(derivedXPrivKey, txp.network);
+  var xpriv = new bchLib.HDPrivateKey(derivedXPrivKey, txp.network);
 
   _.each(txp.inputs, function(i) {
     if (!derived[i.path]) {
@@ -379,7 +379,7 @@ helpers.clientSign = function(txp, derivedXPrivKey) {
     }
   });
 
-  var t = txp.getBcccoreTx();
+  var t = txp.getBchTx();
 
   var signatures = _.map(privs, function(priv, i) {
     return t.getSignatures(priv);

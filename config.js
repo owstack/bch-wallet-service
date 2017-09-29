@@ -1,9 +1,9 @@
 var config = {
-  basePath: '/bccws/api',
+  basePath: '/bchws/api',
   disableLogs: false,
   port: 3232,
 
-  // Uncomment to make BCCWS a forking server
+  // Uncomment to make BCHWS a forking server
   // cluster: true,
 
   // Uncomment to set the number or process (will use the nr of availalbe CPUs by default)
@@ -21,7 +21,7 @@ var config = {
 
   storageOpts: {
     mongoDb: {
-      uri: 'mongodb://localhost:27017/bccws',
+      uri: 'mongodb://localhost:27017/bchws',
     },
   },
   lockOpts: {
@@ -57,7 +57,7 @@ var config = {
   pushNotificationsOpts: {
     templatePath: './lib/templates',
     defaultLanguage: 'en',
-    defaultUnit: 'bcc',
+    defaultUnit: 'bch',
     subjectPrefix: '',
     pushServerUrl: 'https://fcm.googleapis.com/fcm',
     authorizationKey: '',
@@ -72,10 +72,10 @@ var config = {
   //  port: 25,
   //  ignoreTLS: true,
   //  subjectPrefix: '[Wallet Service]',
-  //  from: 'wallet-service@bcccore.io',
+  //  from: 'wallet-service@bch.io',
   //  templatePath: './lib/templates',
   //  defaultLanguage: 'en',
-  //  defaultUnit: 'bcc',
+  //  defaultUnit: 'bch',
   //  publicTxUrlTemplate: {
   //    'livenet': 'https://explorer.openwalletstack.com/tx/{{txid}}',
   //    'testnet': 'https://test-explorer.openwalletstack.com/tx/{{txid}}',

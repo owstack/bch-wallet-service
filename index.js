@@ -1,7 +1,7 @@
-var BCCWS = {};
+var BCHWS = {};
 
-BCCWS.ExpressApp = require('./lib/expressapp');
-BCCWS.Storage = require('./lib/storage');
+BCHWS.ExpressApp = require('./lib/expressapp');
+BCHWS.Storage = require('./lib/storage');
 
 
-module.exports = BCCWS;
+module.exports = BCHWS;
