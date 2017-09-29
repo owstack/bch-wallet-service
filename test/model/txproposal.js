@@ -5,7 +5,7 @@ var chai = require('chai');
 var sinon = require('sinon');
 var should = chai.should();
 var TxProposal = require('../../lib/model/txproposal');
-var Bcccore = require('bcccore-lib');
+var bchLib = require('bch-lib');
 var Constants = require('../../lib/common/constants');
 
 describe('TxProposal', function() {
@@ -27,21 +27,21 @@ describe('TxProposal', function() {
     });
   });
 
-  describe('#getBcccoreTx', function() {
-    it('should create a valid bcccore TX', function() {
+  describe('#getBchTx', function() {
+    it('should create a valid bch TX', function() {
       var txp = TxProposal.fromObj(aTXP());
-      var t = txp.getBcccoreTx();
+      var t = txp.getBchTx();
       should.exist(t);
     });
     it('should order outputs as specified by outputOrder', function() {
       var txp = TxProposal.fromObj(aTXP());
 
       txp.outputOrder = [0, 1, 2];
-      var t = txp.getBcccoreTx();
+      var t = txp.getBchTx();
       t.getChangeOutput().should.deep.equal(t.outputs[2]);
 
       txp.outputOrder = [2, 0, 1];
-      var t = txp.getBcccoreTx();
+      var t = txp.getBchTx();
       t.getChangeOutput().should.deep.equal(t.outputs[0]);
     });
   });

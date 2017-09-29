@@ -85,7 +85,7 @@ describe('Utils', function() {
         args: [1, 'bit'],
         expected: '0',
       }, {
-        args: [1, 'bcc'],
+        args: [1, 'bch'],
         expected: '0.00',
       }, {
         args: [0, 'bit'],
@@ -94,19 +94,19 @@ describe('Utils', function() {
         args: [12345678, 'bit'],
         expected: '123,457',
       }, {
-        args: [12345678, 'bcc'],
+        args: [12345678, 'bch'],
         expected: '0.123457',
       }, {
-        args: [12345611, 'bcc'],
+        args: [12345611, 'bch'],
         expected: '0.123456',
       }, {
-        args: [1234, 'bcc'],
+        args: [1234, 'bch'],
         expected: '0.000012',
       }, {
-        args: [1299, 'bcc'],
+        args: [1299, 'bch'],
         expected: '0.000013',
       }, {
-        args: [1234567899999, 'bcc'],
+        args: [1234567899999, 'bch'],
         expected: '12,345.679',
       }, {
         args: [12345678, 'bit', {
@@ -114,12 +114,12 @@ describe('Utils', function() {
         }],
         expected: '123.457',
       }, {
-        args: [12345678, 'bcc', {
+        args: [12345678, 'bch', {
           decimalSeparator: ','
         }],
         expected: '0,123457',
       }, {
-        args: [1234567899999, 'bcc', {
+        args: [1234567899999, 'bch', {
           thousandsSeparator: ' ',
           decimalSeparator: ','
         }],
