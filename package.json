@@ -1,5 +1,5 @@
 {
-  "name": "bcccore-wallet-service",
+  "name": "bch-wallet-service",
   "description": "A service for mutisignatire HD Bitcoin Cash wallets",
   "version": "0.0.1",
   "licence": "MIT",
@@ -7,15 +7,15 @@
     "bitcoin",
     "multisig",
     "wallet",
-    "bcccore",
-    "BCCWS"
+    "bch",
+    "BCHWS"
   ],
   "repository": {
-    "url": "git@github.com:owstack/bcccore-wallet-service.git",
+    "url": "git@github.com:owstack/bch-wallet-service.git",
     "type": "git"
   },
   "bugs": {
-    "url": "https://github.com/owstack/bcccore-wallet-service/issues"
+    "url": "https://github.com/owstack/bch-wallet-service/issues"
   },
   "scripts": {
     "start": "./start.sh",
@@ -24,11 +24,11 @@
     "test": "./node_modules/.bin/mocha",
     "coveralls": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
-  "main": "bcccore-node",
-  "bcccoreNode": "bcccore-node",
+  "main": "bch-node",
+  "bchNode": "bch-node",
   "dependencies": {
     "async": "^0.9.2",
-    "bcccore-lib": "https://github.com/owstack/bcccore-lib",
+    "bch-lib": "https://github.com/owstack/bch-lib",
     "body-parser": "^1.11.0",
     "compression": "^1.6.2",
     "coveralls": "^2.11.2",

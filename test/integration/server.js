@@ -10,7 +10,7 @@ var log = require('npmlog');
 log.debug = log.verbose;
 log.level = 'info';
 
-var Bcccore = require('bcccore-lib');
+var Bch = require('bch-lib');
 
 var Common = require('../../lib/common');
 var Utils = Common.Utils;
@@ -44,22 +44,22 @@ describe('Wallet service', function() {
 
   describe('#getServiceVersion', function() {
     it('should get version from package', function() {
-      WalletService.getServiceVersion().should.equal('bccws-' + require('../../package').version);
+      WalletService.getServiceVersion().should.equal('bchws-' + require('../../package').version);
     });
   });
 
   describe('#getInstance', function() {
     it('should get server instance', function() {
       var server = WalletService.getInstance({
-        clientVersion: 'bccwc-2.9.0',
+        clientVersion: 'bchwc-2.9.0',
       });
-      server.clientVersion.should.equal('bccwc-2.9.0');
+      server.clientVersion.should.equal('bchwc-2.9.0');
     });
-    it('should not get server instance for BCCWC lower than v1.2', function() {
+    it('should not get server instance for BCHWC lower than v1.2', function() {
       var err;
       try {
         var server = WalletService.getInstance({
-          clientVersion: 'bccwc-1.1.99',
+          clientVersion: 'bchwc-1.1.99',
         });
       } catch (ex) {
         err = ex;
@@ -67,7 +67,7 @@ describe('Wallet service', function() {
       should.exist(err);
       err.code.should.equal('UPGRADE_NEEDED');
     });
-    it('should get server instance for non-BCCWC clients', function() {
+    it('should get server instance for non-BCHWC clients', function() {
       var server = WalletService.getInstance({
         clientVersion: 'dummy-1.0.0',
       });
@@ -78,12 +78,12 @@ describe('Wallet service', function() {
   });
 
   describe('#getInstanceWithAuth', function() {
-    it('should not get server instance for BCCWC lower than v1.2', function(done) {
+    it('should not get server instance for BCHWC lower than v1.2', function(done) {
       var server = WalletService.getInstanceWithAuth({
         copayerId: '1234',
         message: 'hello world',
         signature: 'xxx',
-        clientVersion: 'bccwc-1.1.99',
+        clientVersion: 'bchwc-1.1.99',
       }, function(err, server) {
         should.exist(err);
         should.not.exist(server);
@@ -102,13 +102,13 @@ describe('Wallet service', function() {
           copayerId: wallet.copayers[0].id,
           message: 'hello world',
           signature: sig,
-          clientVersion: 'bccwc-2.0.0',
+          clientVersion: 'bchwc-2.0.0',
           walletId: '123',
         }, function(err, server) {
           should.not.exist(err);
           server.walletId.should.equal(wallet.id);
           server.copayerId.should.equal(wallet.copayers[0].id);
-          server.clientVersion.should.equal('bccwc-2.0.0');
+          server.clientVersion.should.equal('bchwc-2.0.0');
           done();
         });
       });
@@ -1631,7 +1631,7 @@ describe('Wallet service', function() {
     };
 
     beforeEach(function() {
-      reqPrivKey = new Bcccore.PrivateKey();
+      reqPrivKey = new Bch.PrivateKey();
       var requestPubKey = reqPrivKey.toPublicKey();
 
       var xPrivKey = TestData.copayers[0].xPrivKey_44H_0H_0H;
@@ -1692,7 +1692,7 @@ describe('Wallet service', function() {
           should.not.exist(err);
           server.getBalance(res.wallet.walletId, function(err, bal) {
             should.not.exist(err);
-            var privKey = new Bcccore.PrivateKey();
+            var privKey = new Bch.PrivateKey();
             (getAuthServer(opts.copayerId, privKey, function(err, server2) {
               err.code.should.equal('NOT_AUTHORIZED');
               done();
@@ -2580,7 +2580,7 @@ describe('Wallet service', function() {
             server.createTx(txOpts, function(err, tx) {
               should.not.exist(err);
               should.exist(tx);
-              var t = tx.getBcccoreTx();
+              var t = tx.getBchTx();
               t.getChangeOutput().script.toAddress().toString().should.equal(txOpts.changeAddress);
               done();
             });
@@ -2602,7 +2602,7 @@ describe('Wallet service', function() {
               tx.amount.should.equal(helpers.toSatoshi(0.8));
               should.not.exist(tx.feePerKb);
               tx.fee.should.equal(1000e2);
-              var t = tx.getBcccoreTx();
+              var t = tx.getBchTx();
               t.getFee().should.equal(1000e2);
               t.getChangeOutput().satoshis.should.equal(3e8 - 0.8e8 - 1000e2);
               done();
@@ -3083,7 +3083,7 @@ describe('Wallet service', function() {
           server.createTx(txOpts, function(err, txp) {
             should.not.exist(err);
             should.exist(txp);
-            var t = txp.getBcccoreTx().toObject();
+            var t = txp.getBchTx().toObject();
             t.outputs.length.should.equal(1);
             t.outputs[0].satoshis.should.equal(max);
             done();
@@ -3108,10 +3108,10 @@ describe('Wallet service', function() {
           });
         });
       });
-      it('should fail gracefully when bcccore throws exception on raw tx creation', function(done) {
+      it('should fail gracefully when bch throws exception on raw tx creation', function(done) {
         helpers.stubUtxos(server, wallet, 1, function() {
-          var bcccoreStub = sinon.stub(Bcccore, 'Transaction');
-          bcccoreStub.throws({
+          var bchStub = sinon.stub(Bch, 'Transaction');
+          bchStub.throws({
             name: 'dummy',
             message: 'dummy exception'
           });
@@ -3125,7 +3125,7 @@ describe('Wallet service', function() {
           server.createTx(txOpts, function(err, tx) {
             should.exist(err);
             err.message.should.equal('dummy exception');
-            bcccoreStub.restore();
+            bchStub.restore();
             done();
           });
         });
@@ -3206,9 +3206,9 @@ describe('Wallet service', function() {
           server.createTx(txOpts, function(err, tx) {
             should.not.exist(err);
             should.exist(tx);
-            var bcccoreTx = tx.getBcccoreTx();
-            bcccoreTx.outputs.length.should.equal(1);
-            bcccoreTx.outputs[0].satoshis.should.equal(tx.amount);
+            var bchTx = tx.getBchTx();
+            bchTx.outputs.length.should.equal(1);
+            bchTx.outputs[0].satoshis.should.equal(tx.amount);
             done();
           });
         });
@@ -3274,7 +3274,7 @@ describe('Wallet service', function() {
         });
       });
       it('should accept a tx proposal signed with a custom key', function(done) {
-        var reqPrivKey = new Bcccore.PrivateKey();
+        var reqPrivKey = new Bch.PrivateKey();
         var reqPubKey = reqPrivKey.toPublicKey().toString();
 
         var xPrivKey = TestData.copayers[0].xPrivKey_44H_0H_0H;
@@ -3338,7 +3338,7 @@ describe('Wallet service', function() {
             should.not.exist(tx.changeAddress);
             tx.amount.should.equal(3e8 - tx.fee);
 
-            var t = tx.getBcccoreTx();
+            var t = tx.getBchTx();
             t.getFee().should.equal(tx.fee);
             should.not.exist(t.getChangeOutput());
             t.toObject().inputs.length.should.equal(tx.inputs.length);
@@ -3361,7 +3361,7 @@ describe('Wallet service', function() {
           server.createTx(txOpts, function(err, txp) {
             should.not.exist(err);
             should.exist(txp);
-            var t = txp.getBcccoreTx();
+            var t = txp.getBchTx();
             var changeOutput = t.getChangeOutput().satoshis;
             var outputs = _.without(_.pluck(t.outputs, 'satoshis'), changeOutput);
 
@@ -3371,7 +3371,7 @@ describe('Wallet service', function() {
               should.not.exist(err);
               should.exist(txp);
 
-              t = txp.getBcccoreTx();
+              t = txp.getBchTx();
               changeOutput = t.getChangeOutput().satoshis;
               outputs = _.without(_.pluck(t.outputs, 'satoshis'), changeOutput);
 
@@ -3827,7 +3827,7 @@ describe('Wallet service', function() {
         });
       });
       it('should select unconfirmed utxos if not enough confirmed utxos', function(done) {
-        helpers.stubUtxos(server, wallet, ['u 1bcc', '0.5bcc'], function() {
+        helpers.stubUtxos(server, wallet, ['u 1bch', '0.5bch'], function() {
           var txOpts = {
             outputs: [{
               toAddress: '18PzpUFkFZE8zKWUPvfykkTxmB9oMR8qP7',
@@ -3895,7 +3895,7 @@ describe('Wallet service', function() {
             should.not.exist(err);
             txp.inputs.length.should.equal(1);
             (_.sum(txp.inputs, 'satoshis') - txp.outputs[0].amount - txp.fee).should.equal(0);
-            var changeOutput = txp.getBcccoreTx().getChangeOutput();
+            var changeOutput = txp.getBchTx().getChangeOutput();
             should.not.exist(changeOutput);
             done();
           });
@@ -4437,7 +4437,7 @@ describe('Wallet service', function() {
       server.createTx(txOpts, function(err, tx) {
         should.not.exist(err);
         should.exist(tx);
-        var t = tx.getBcccoreTx();
+        var t = tx.getBchTx();
         t.toObject().inputs.length.should.equal(info.inputs.length);
         t.getFee().should.equal(info.fee);
         should.not.exist(t.getChangeOutput());
@@ -7531,7 +7531,7 @@ describe('Wallet service', function() {
       });
     });
     it('should get wallet from tx proposal', function(done) {
-      helpers.stubUtxos(server, wallet, '1 bcc', function() {
+      helpers.stubUtxos(server, wallet, '1 bch', function() {
         helpers.stubBroadcast();
         var txOpts = {
           outputs: [{
