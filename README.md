@@ -1,6 +1,8 @@
 Bch Wallet Service
 ======
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/owstack/bch-wallet-service.svg)](https://greenkeeper.io/)
+
 [![NPM Package](https://img.shields.io/npm/v/bch-wallet-service.svg?style=flat-square)](https://www.npmjs.org/package/bch-wallet-service)
 [![Build Status](https://img.shields.io/travis/owstack/bch-wallet-service.svg?branch=master&style=flat-square)](https://travis-ci.org/owstack/bch-wallet-service)
 [![Coverage Status](https://coveralls.io/repos/owstack/bch-wallet-service/badge.svg?branch=master)](https://coveralls.io/r/owstack/bch-wallet-service?branch=master)
