@@ -55,18 +55,7 @@ describe('Wallet service', function() {
       });
       server.clientVersion.should.equal('bchwc-2.9.0');
     });
-    it('should not get server instance for BCHWC lower than v1.2', function() {
-      var err;
-      try {
-        var server = WalletService.getInstance({
-          clientVersion: 'bchwc-1.1.99',
-        });
-      } catch (ex) {
-        err = ex;
-      }
-      should.exist(err);
-      err.code.should.equal('UPGRADE_NEEDED');
-    });
+
     it('should get server instance for non-BCHWC clients', function() {
       var server = WalletService.getInstance({
         clientVersion: 'dummy-1.0.0',
@@ -78,19 +67,6 @@ describe('Wallet service', function() {
   });
 
   describe('#getInstanceWithAuth', function() {
-    it('should not get server instance for BCHWC lower than v1.2', function(done) {
-      var server = WalletService.getInstanceWithAuth({
-        copayerId: '1234',
-        message: 'hello world',
-        signature: 'xxx',
-        clientVersion: 'bchwc-1.1.99',
-      }, function(err, server) {
-        should.exist(err);
-        should.not.exist(server);
-        err.code.should.equal('UPGRADE_NEEDED');
-        done();
-      });
-    });
     it('should get server instance for existing copayer', function(done) {
       helpers.createAndJoinWallet(1, 2, function(s, wallet) {
         var xpriv = TestData.copayers[0].xPrivKey;
@@ -4355,7 +4331,7 @@ describe('Wallet service', function() {
           });
         });
       });
-    });    
+    });
     it('should not be able to specify custom changeAddress', function(done) {
       helpers.stubUtxos(server, wallet, 2, function() {
         var toAddress = 'CPrtPWbp8cCftTQu5fzuLG5zPJNDHMMf8X';
