@@ -1,7 +1,7 @@
 var config = {
   basePath: '/bchws/api',
   disableLogs: false,
-  port: 3233,
+  port: 4232,
 
   // Uncomment to make BCHWS a forking server
   // cluster: true,
@@ -28,13 +28,13 @@ var config = {
     //  To use locker-server, uncomment this:
     lockerServer: {
       host: 'localhost',
-      port: 3231,
+      port: 4231,
     },
   },
   messageBrokerOpts: {
     //  To use message broker server, uncomment this:
     messageBrokerServer: {
-      url: 'http://localhost:3380',
+      url: 'http://localhost:4380',
     },
   },
   blockchainExplorerOpts: {
