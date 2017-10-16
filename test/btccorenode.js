@@ -27,7 +27,7 @@ describe('Bch Node Service', function() {
         key: 'key',
         cert: 'cert'
       });
-      service.bchwsPort.should.equal(3232);
+      service.bchwsPort.should.equal(3233);
       service.messageBrokerPort.should.equal(3380);
       service.lockerPort.should.equal(3231);
     });
@@ -47,7 +47,7 @@ describe('Bch Node Service', function() {
         key: 'key',
         cert: 'cert'
       });
-      service.bchwsPort.should.equal(3232);
+      service.bchwsPort.should.equal(3233);
       service.messageBrokerPort.should.equal(3380);
       service.lockerPort.should.equal(3231);
     });
@@ -93,47 +93,6 @@ describe('Bch Node Service', function() {
       serverOptions.ca[0].should.equal('CAinter1');
       serverOptions.ca[1].should.equal('CAinter2');
       serverOptions.ca[2].should.equal('CAroot');
-    });
-  });
-  describe('#_getConfiguration', function() {
-    it('will throw with an unknown network', function() {
-      var options = {
-        node: {
-          network: 'unknown'
-        }
-      };
-      var service = new Service(options);
-      (function() {
-        service._getConfiguration();
-      }).should.throw('Unknown network');
-    });
-    it('livenet local explorer', function() {
-      var options = {
-        node: {
-          network: bch.Networks.livenet,
-          port: 3001
-        }
-      };
-      var service = new Service(options);
-      var config = service._getConfiguration();
-      config.blockchainExplorerOpts['explorer'][Constants.LIVENET].should.deep.equal({
-        'apiPrefix': '/explorer-api',
-        'url': 'http://localhost:3001'
-      });
-    });
-    it('testnet local explorer', function() {
-      var options = {
-        node: {
-          network: bch.Networks.testnet,
-          port: 3001
-        }
-      };
-      var service = new Service(options);
-      var config = service._getConfiguration();
-      config.blockchainExplorerOpts['explorer'][Constants.TESTNET].should.deep.equal({
-        'apiPrefix': '/explorer-api',
-        'url': 'http://localhost:3001'
-      });
     });
   });
   describe('#_startWalletService', function() {
@@ -238,19 +197,6 @@ describe('Bch Node Service', function() {
     });
   });
   describe('#start', function(done) {
-    it('error from configuration', function(done) {
-      var options = {
-        node: {}
-      };
-      var service = new Service(options);
-      service._getConfiguration = function() {
-        throw new Error('test');
-      };
-      service.start(function(err) {
-        err.message.should.equal('test');
-        done();
-      });
-    });
     it('error from blockchain monitor', function(done) {
       var app = {};
       function TestBlockchainMonitor() {}
@@ -302,7 +248,6 @@ describe('Bch Node Service', function() {
       service._getConfiguration = sinon.stub().returns({
         emailOpts: {}
       });
-      var config = {};
       service._startWalletService = sinon.stub().callsArg(1);
       service.start(function(err) {
         err.message.should.equal('test');

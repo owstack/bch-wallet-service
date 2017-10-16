@@ -12,7 +12,7 @@ describe('Blockchain explorer', function() {
     it('should return a blockchain explorer with basic methods', function() {
       var exp = new BlockchainExplorer({
         provider: 'explorer',
-        network: Constants.TESTNET,
+        network: Constants.LIVENET,
       });
       should.exist(exp);
       exp.should.respondTo('broadcast');

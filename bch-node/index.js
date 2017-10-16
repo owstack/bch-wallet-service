@@ -72,31 +72,11 @@ Service.prototype._readHttpsOptions = function() {
 };
 
 /**
- * Will get the configuration with settings for the locally
- * running Explorer API.
+ * Will get the configuration settings.
  * @returns {Object}
  */
 Service.prototype._getConfiguration = function() {
-  var self = this;
-
-  var providerOptions = {
-    url: (self.node.https ? 'https://' : 'http://') + 'localhost:' + self.node.port,
-    apiPrefix: '/explorer-api'
-  };
-
-  // A bch-node is either livenet or testnet, so we'll pass
-  // the configuration options to communicate via the local running
-  // instance of the explorer-api service.
-  if (self.node.network === Networks.livenet) {
-    baseConfig.blockchainExplorerOpts[Constants.LIVENET] = providerOptions;
-  } else if (self.node.network === Networks.testnet) {
-    baseConfig.blockchainExplorerOpts[Constants.TESTNET] = providerOptions;
-  } else {
-    throw new Error('Unknown network');
-  }
-
   return baseConfig;
-
 };
 
 /**
@@ -125,14 +105,8 @@ Service.prototype._startWalletService = function(config, next) {
  * Called by the node to start the service
  */
 Service.prototype.start = function(done) {
-
   var self = this;
-  var config;
-  try {
-    config = self._getConfiguration();
-  } catch (err) {
-    return done(err);
-  }
+  var config = this._getConfiguration();
 
   // Locker Server
   var locker = new Locker();
