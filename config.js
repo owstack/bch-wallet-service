@@ -1,7 +1,7 @@
 var config = {
   basePath: '/bchws/api',
   disableLogs: false,
-  port: 3232,
+  port: 3233,
 
   // Uncomment to make BCHWS a forking server
   // cluster: true,
@@ -43,12 +43,10 @@ var config = {
     // Providers
     explorer: {
       livenet: {
-        url: 'http://localhost:3001',
-        apiPrefix: '/explorer-api'
-      },
-      testnet: {
-        url: 'http://localhost:3001',
-        apiPrefix: '/explorer-api'
+        url: 'https://bch-insight.bitpay.com',
+        apiPrefix: '/api'
+//        url: 'http://localhost:3001',
+//        apiPrefix: '/explorer-api'
         // Multiple servers (in priority order)
         // url: ['http://a.b.c', 'https://test-explorer.openwalletstack.com:443'],
       },
