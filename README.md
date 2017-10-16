@@ -25,7 +25,7 @@ See [Bch-wallet-client](https://github.com/owstack/bch-wallet-client) for the *o
  cd bch-wallet-service && npm start
 ```
 
-This will launch the BCHWS service (with default settings) at `http://localhost:3232/bchws/api`.
+This will launch the BCHWS service (with default settings) at `http://localhost:4232/bchws/api`.
 
 BCHWS needs mongoDB. You can configure the connection at `config.js`
 

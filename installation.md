@@ -61,7 +61,7 @@ Example configuration for connecting to message broker service:
 ```javascript
   messageBrokerOpts: {
     messageBrokerServer: {
-      url: 'http://localhost:3380',
+      url: 'http://localhost:4380',
     },
   }
 ```

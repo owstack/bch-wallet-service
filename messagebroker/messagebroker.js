@@ -7,7 +7,7 @@ var io = require('socket.io');
 var log = require('npmlog');
 log.debug = log.verbose;
 
-var DEFAULT_PORT = 3380;
+var DEFAULT_PORT = 4380;
 
 var opts = {
   port: parseInt(process.argv[2]) || DEFAULT_PORT,

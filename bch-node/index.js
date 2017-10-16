@@ -35,7 +35,7 @@ var Service = function(options) {
   this.https = options.https || this.node.https;
   this.httpsOptions = options.httpsOptions || this.node.httpsOptions;
   this.bchwsPort = options.bchwsPort || baseConfig.port;
-  this.messageBrokerPort = options.messageBrokerPort || 3380;
+  this.messageBrokerPort = options.messageBrokerPort || 4380;
   if (baseConfig.lockOpts) {
     this.lockerPort = baseConfig.lockOpts.lockerServer.port;
   }
