@@ -27,9 +27,9 @@ describe('Bch Node Service', function() {
         key: 'key',
         cert: 'cert'
       });
-      service.bchwsPort.should.equal(3233);
-      service.messageBrokerPort.should.equal(3380);
-      service.lockerPort.should.equal(3231);
+      service.bchwsPort.should.equal(4232);
+      service.messageBrokerPort.should.equal(3381);
+      service.lockerPort.should.equal(4231);
     });
     it('direct https options', function() {
       var node = {};
@@ -47,9 +47,9 @@ describe('Bch Node Service', function() {
         key: 'key',
         cert: 'cert'
       });
-      service.bchwsPort.should.equal(3233);
-      service.messageBrokerPort.should.equal(3380);
-      service.lockerPort.should.equal(3231);
+      service.bchwsPort.should.equal(4232);
+      service.messageBrokerPort.should.equal(3381);
+      service.lockerPort.should.equal(4231);
     });
     it('can set custom ports', function() {
       var node = {};
@@ -113,7 +113,7 @@ describe('Bch Node Service', function() {
       });
       var options = {
         node: {
-          bchwsPort: 3232
+          bchwsPort: 4232
         }
       };
       var service = new TestService(options);
@@ -146,7 +146,7 @@ describe('Bch Node Service', function() {
       });
       var options = {
         node: {
-          bchwsPort: 3232
+          bchwsPort: 4232
         }
       };
       var service = new TestService(options);
@@ -183,7 +183,7 @@ describe('Bch Node Service', function() {
       var options = {
         node: {
           https: true,
-          bchwsPort: 3232
+          bchwsPort: 4232
         }
       };
       var service = new TestService(options);
