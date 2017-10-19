@@ -34,7 +34,7 @@ var config = {
   messageBrokerOpts: {
     //  To use message broker server, uncomment this:
     messageBrokerServer: {
-      url: 'http://localhost:4380',
+      url: 'http://localhost:3381',
     },
   },
   blockchainExplorerOpts: {
@@ -64,6 +64,7 @@ var config = {
     defaultProvider: 'BitPay',
     fetchInterval: 60, // in minutes
   },
+
   // To use email notifications uncomment this:
   // emailOpts: {
   //  host: 'localhost',

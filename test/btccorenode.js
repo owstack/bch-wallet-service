@@ -28,7 +28,7 @@ describe('Bch Node Service', function() {
         cert: 'cert'
       });
       service.bchwsPort.should.equal(4232);
-      service.messageBrokerPort.should.equal(4380);
+      service.messageBrokerPort.should.equal(3381);
       service.lockerPort.should.equal(4231);
     });
     it('direct https options', function() {
@@ -48,7 +48,7 @@ describe('Bch Node Service', function() {
         cert: 'cert'
       });
       service.bchwsPort.should.equal(4232);
-      service.messageBrokerPort.should.equal(4380);
+      service.messageBrokerPort.should.equal(3381);
       service.lockerPort.should.equal(4231);
     });
     it('can set custom ports', function() {

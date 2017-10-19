@@ -51,7 +51,7 @@ Example configuration for connecting to locker service:
   lockOpts: {
     lockerServer: {
       host: 'localhost',
-      port: 3231,
+      port: 4231,
     },
   }
 ```
@@ -61,7 +61,7 @@ Example configuration for connecting to message broker service:
 ```javascript
   messageBrokerOpts: {
     messageBrokerServer: {
-      url: 'http://localhost:4380',
+      url: 'http://localhost:3381',
     },
   }
 ```
