@@ -5,7 +5,7 @@ var chai = require('chai');
 var sinon = require('sinon');
 var should = chai.should();
 var TxProposal = require('../../lib/model/txproposal');
-var bchLib = require('bch-lib');
+var bchLib = require('@owstack/bch-lib');
 var Constants = require('../../lib/common/constants');
 
 describe('TxProposal', function() {

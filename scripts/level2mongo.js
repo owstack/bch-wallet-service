@@ -2,7 +2,7 @@
 
 var LevelStorage = require('../lib/storage_leveldb');
 var MongoStorage = require('../lib/storage');
-var bchLib = require('bch-lib');
+var bchLib = require('@owstack/bch-lib');
 
 var level = new LevelStorage({
   dbPath: './db',

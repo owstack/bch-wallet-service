@@ -10,7 +10,7 @@ var log = require('npmlog');
 log.debug = log.verbose;
 log.level = 'info';
 
-var bchLib = require('bch-lib');
+var bchLib = require('@owstack/bch-lib');
 
 var Common = require('../../lib/common');
 var Utils = Common.Utils;

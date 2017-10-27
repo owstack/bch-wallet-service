@@ -12,7 +12,7 @@ var tingodb = require('tingodb')({
   memStore: true
 });
 
-var bchLib = require('bch-lib');
+var bchLib = require('@owstack/bch-lib');
 
 var Common = require('../../lib/common');
 var Utils = Common.Utils;
