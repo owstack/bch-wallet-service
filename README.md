@@ -7,10 +7,6 @@ Bch Wallet Service
 
 A multisignature HD Bitcoin Cash wallet service.
 
-## Attribution
-
-This repository was created by copy forking [bitcore-wallet-service commit b6d9048](https://github.com/bitpay/bitcore-wallet-service/commit/b6d904800196f48329f6f10d4cc191b6964ba105).
-
 # Description
 
 Bch Wallet Service facilitates multisig HD wallets creation and operation through a (hopefully) simple and intuitive REST API.
