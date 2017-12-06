@@ -44,7 +44,7 @@ var Service = function(options) {
 
 util.inherits(Service, EventEmitter);
 
-Service.dependencies = ['bch-explorer-api'];
+Service.dependencies = ['@owstack/bch-explorer-api'];
 
 /**
  * This method will read `key` and `cert` files from disk based on `httpsOptions` and
