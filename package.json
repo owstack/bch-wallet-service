@@ -1,7 +1,7 @@
 {
   "name": "@owstack/bch-wallet-service",
   "description": "A service for mutisignatire HD Bitcoin Cash wallets",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "licence": "MIT",
   "keywords": [
     "bitcoin",
@@ -26,7 +26,7 @@
   },
   "bchNode": "bch-node",
   "dependencies": {
-    "@owstack/bch-lib": "^0.0.5",
+    "@owstack/bch-lib": "^0.0.6",
     "async": "^0.9.2",
     "body-parser": "^1.11.0",
     "compression": "^1.6.2",
