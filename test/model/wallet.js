@@ -50,7 +50,7 @@ describe('Wallet', function() {
     it('create an address', function() {
       var w = Wallet.fromObj(testWallet);
       var a = w.createAddress(false);
-      a.address.should.equal('HNDR1iqekmiCizGDqgmpDtWZa3pN79bCui');
+      a.address.should.equal('3HPJYvQZuTVY6pPBz17fFVz2YPoMBVT34i');
       a.path.should.equal('m/2147483647/0/0');
       a.createdOn.should.be.above(1);
     });

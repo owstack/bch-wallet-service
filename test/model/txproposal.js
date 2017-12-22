@@ -114,11 +114,11 @@ var aTxpOpts = function(type) {
     message: 'some message'
   };
   opts.outputs = [{
-    toAddress: "CPrtPWbp8cCftTQu5fzuLG5zPJNDHMMf8X",
+    toAddress: "18PzpUFkFZE8zKWUPvfykkTxmB9oMR8qP7",
     amount: 10000000,
     message: "first message"
   }, {
-    toAddress: "CPrtPWbp8cCftTQu5fzuLG5zPJNDHMMf8X",
+    toAddress: "18PzpUFkFZE8zKWUPvfykkTxmB9oMR8qP7",
     amount: 20000000,
     message: "second message"
   }, ];
@@ -140,7 +140,7 @@ var aTXP = function(type) {
     "changeAddress": {
       "version": '1.0.0',
       "createdOn": 1424372337,
-      "address": 'HHR21sjZ6yz6o7v124aMQBu4eGa4RBdUdS',
+      "address": '3CauZ5JUFfmSAx2yANvCRoNXccZ3YSUjXH',
       "path": 'm/2147483647/1/0',
       "publicKeys": ['030562cb099e6043dc499eb359dd97c9d500a3586498e4bcf0228a178cc20e6f16',
         '0367027d17dbdfc27b5e31f8ed70e14d47949f0fa392261e977db0851c8b0d6fac',
@@ -152,7 +152,7 @@ var aTXP = function(type) {
       "vout": 8,
       "satoshis": 100000000,
       "scriptPubKey": "a914a8a9648754fbda1b6c208ac9d4e252075447f36887",
-      "address": "HMtvqBXNuhiizxofi9LC5tT69M3RRLu1FT",
+      "address": "3H4pNP6J4PW4NnvdrTg37VvZ7h2QWuAwtA",
       "path": "m/2147483647/0/1",
       "publicKeys": ["0319008ffe1b3e208f5ebed8f46495c056763f87b07930a7027a92ee477fb0cb0f", "03b5f035af8be40d0db5abb306b7754949ab39032cf99ad177691753b37d101301"]
     }],
@@ -165,11 +165,11 @@ var aTXP = function(type) {
     "actions": [],
     "fee": 10000,
     "outputs": [{
-      "toAddress": "CPrtPWbp8cCftTQu5fzuLG5zPJNDHMMf8X",
+      "toAddress": "18PzpUFkFZE8zKWUPvfykkTxmB9oMR8qP7",
       "amount": 10000000,
       "message": "first message"
     }, {
-      "toAddress": "CPrtPWbp8cCftTQu5fzuLG5zPJNDHMMf8X",
+      "toAddress": "18PzpUFkFZE8zKWUPvfykkTxmB9oMR8qP7",
       "amount": 20000000,
       "message": "second message"
     }, ],
